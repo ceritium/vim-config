@@ -2,6 +2,19 @@ set shell=/bin/sh
 
 execute pathogen#infect()
 
+func GitGrep(...)
+  let save = &grepprg
+  set grepprg=git\ grep\ -n\ $*
+  let s = 'grep'
+  for i in a:000
+    let s = s . ' ' . i
+  endfor
+  exe s
+  let &grepprg = save
+endfun
+command -nargs=? G call GitGrep(<f-args>)
+
+
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:EasyMotion_leader_key = '<Leader>'
 
